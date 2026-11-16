@@ -1,8 +1,6 @@
 # Paquete de observabilidad VQA
 
 ## Contenido
-- Documento_tecnico_observabilidad_VQA.docx: diseño técnico y runbooks.
-- Evidencia_implementacion_incidentes_VQA.pptx: presentación de evidencias y simulaciones.
 - scripts/: exporter de métricas, PSI y evaluador de alertas.
 - config/: configuración de Prometheus y reglas de alertas.
 - docker-compose.yml: arranque básico de Prometheus y Grafana.

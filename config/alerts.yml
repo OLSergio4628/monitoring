@@ -1,0 +1,31 @@
+groups:
+- name: vqa-slo-alerts
+  rules:
+  - alert: VQAAccuracyLow
+    expr: vqa_validation_accuracy < 0.80
+    for: 5m
+    labels: {severity: critical, service: vqa}
+    annotations:
+      summary: "Precisión VQA por debajo del SLO"
+      runbook: "RB-01"
+  - alert: VQALatencyHigh
+    expr: histogram_quantile(0.95, sum(rate(vqa_request_latency_seconds_bucket[5m])) by (le)) > 1.5
+    for: 5m
+    labels: {severity: critical, service: vqa}
+    annotations:
+      summary: "Latencia p95 excede el objetivo"
+      runbook: "RB-02"
+  - alert: VQADataDrift
+    expr: vqa_data_drift_psi > 0.25
+    for: 10m
+    labels: {severity: warning, service: vqa}
+    annotations:
+      summary: "Data drift significativo"
+      runbook: "RB-03"
+  - alert: VQAErrorRateHigh
+    expr: vqa_error_rate > 0.05
+    for: 5m
+    labels: {severity: high, service: vqa}
+    annotations:
+      summary: "Tasa de error elevada"
+      runbook: "RB-04"
